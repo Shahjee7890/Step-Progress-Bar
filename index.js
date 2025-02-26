@@ -12,7 +12,6 @@ nextEl.addEventListener("click", () => {
   if (currentChecked > stepsEl.length) {
     currentChecked = stepsEl.length;
   }
-  
   updateStepProgress();
 });
 
@@ -33,7 +32,7 @@ function updateStepProgress() {
       <small>${
         idx === 0
           ? "Start"
-          : idx === stepEl.length - 1
+          : idx === stepsEl.length - 1
           ? "Final"
           : "Step " + idx
       }</small>
@@ -41,15 +40,15 @@ function updateStepProgress() {
     } else {
       stepEl.classList.remove("checked");
       stepEl.innerHTML = `
-         <i class="fas fa-times"></i>
-        `;
+      <i class="fas fa-times"></i>
+      `;
     }
   });
 
-  const checkedNumber = document.querySelectorAll(".checked"); // review
+  const checkedNumber = document.querySelectorAll(".checked");
 
   progressEl.style.width =
-    ((checkedNumber.length - 1) / (stepsEl.length - 1)) * 100 + "%"; // review
+    ((checkedNumber.length - 1) / (stepsEl.length - 1)) * 100 + "%";
 
   if (currentChecked === 1) {
     prevEl.disabled = true;

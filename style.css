@@ -1,110 +1,161 @@
+/* General Styles */
 body {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(to right, #a8c7de, #86a1b7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-  }
-  
-  .container {
-    text-align: center;
-    background: #fff;
-    padding: 30px 50px;
-    border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-  }
-  
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #000428, #004e92);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Centered container */
+.container {
+  text-align: center;
+}
+
+/* Progress Bar Container */
+.progress-container {
+  width: 500px;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+}
+
+/* Background Progress Bar (Even lower) */
+.progress-bar-back {
+  position: absolute;
+  height: 6px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  z-index: -2; /* Lower layer */
+  top: 85px; /* Moves it further below the steps */
+  left: 0;
+}
+
+/* Front Progress Bar with Glow Effect */
+.progress-bar-front {
+  position: absolute;
+  height: 6px;
+  width: 0%;
+  background: linear-gradient(90deg, #ff00ff, #00ffff);
+  border-radius: 10px;
+  z-index: -1; /* Above the back bar but below the steps */
+  top: 85px; /* Align with background bar */
+  left: 0;
+  transition: width 0.5s ease-in-out;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+}
+
+/* Steps (Circles) */
+.step {
+  width: 45px;
+  height: 45px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: bold;
+  font-size: 1.4rem;
+  position: relative; /* Keeps it above the bar */
+  z-index: 1; /* Above progress bar */
+}
+
+/* Checked Step */
+.step.checked {
+  color: #00ffcc;
+  border-color: #00ffcc;
+  background: rgba(0, 255, 204, 0.2);
+  transform: scale(1.15);
+  box-shadow: 0 0 15px rgba(0, 255, 204, 0.9);
+  animation: pulse 0.8s infinite alternate;
+}
+
+/* Checkmark Animation */
+.step.checked::after {
+  content: "✔";
+  position: absolute;
+  font-size: 1.5rem;
+  color: #00ffcc;
+  font-weight: bold;
+  animation: pop 0.3s ease-in-out;
+}
+
+/* Small Text under Steps */
+.step small {
+  position: absolute;
+  bottom: -30px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.829);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.step.checked small {
+  opacity: 1;
+}
+
+/* Buttons */
+.btn {
+  background: linear-gradient(135deg, #ff0080, #8000ff);
+  border: none;
+  color: white;
+  padding: 12px 30px;
+  margin: 70px 10px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 8px 20px rgba(255, 0, 255, 0.4);
+}
+
+.btn:hover {
+  opacity: 0.85;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(255, 0, 255, 0.6);
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+.btn:disabled {
+  background: rgba(255, 255, 255, 0.5);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Responsive Design */
+@media (max-width: 500px) {
   .progress-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    width: 100%;
-    max-width: 450px;
-    margin: 40px auto;
+    width: 90vw;
   }
-  
-  .progress-bar-back {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: 6px;
-    background: #ddd;
-    z-index: -1;
-    transform: translateY(-50%);
-    border-radius: 4px;
+}
+
+/* Animations */
+@keyframes pop {
+  0% {
+    transform: scale(0);
   }
-  
-  .progress-bar-front {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 0%;
-    height: 6px;
-    background: #2196F3;
-    z-index: -1;
-    transform: translateY(-50%);
-    border-radius: 4px;
-    transition: width 0.4s ease-in-out;
+  100% {
+    transform: scale(1);
   }
-  
-  .step,
-  .step-checked {
-    width: 45px;
-    height: 45px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #ddd;
-    border-radius: 50%;
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-    position: relative;
-    transition: all 0.4s ease-in-out;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1.15);
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.8);
   }
-  
-  .step-checked {
-    background: #2196F3;
-    box-shadow: 0 0 10px rgba(33, 150, 243, 0.7);
+  to {
+    transform: scale(1.2);
+    box-shadow: 0 0 25px rgba(0, 255, 204, 1);
   }
-  
-  .step i,
-  .step-checked i {
-    color: white;
-  }
-  
-  small {
-    position: absolute;
-    top: 55px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #333;
-  }
-  
-  .btn {
-    background: #2196F3;
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    cursor: pointer;
-    font-size: 18px;
-    margin: 15px;
-    border-radius: 6px;
-    transition: background 0.3s ease-in-out, transform 0.2s;
-  }
-  
-  .btn:disabled {
-    background: #bbb;
-    cursor: not-allowed;
-  }
-  
-  .btn:hover:not(:disabled) {
-    background: #1976D2;
-    transform: scale(1.05);
-  }
-  
+}
